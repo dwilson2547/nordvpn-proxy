@@ -41,4 +41,5 @@ RUN \
 CMD ["runsvdir", "/app"]
 
 HEALTHCHECK --interval=1m --timeout=10s \
-  CMD if [[ $( curl -x localhost:8118 https://api.nordvpn.com/vpn/check/full | jq -r '.["status"]' ) = "Protected" ]] ; then exit 0; else exit 1; fi
+  CMD if [[ $( curl -s -x localhost:8118 https://web-api.nordvpn.com/v1/ips/info | jq -r '.protected' ) = "true" ]] ; then exit 0; else exit 1; fi
+
