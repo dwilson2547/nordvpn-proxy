@@ -1,7 +1,7 @@
 version: '3'
 services:
   vpn:
-    image: jeroenslot/nordvpn-proxy:latest
+    image: 9yifanchen9/nordvpn-proxy:latest
     cap_add:
       - NET_ADMIN
     devices:

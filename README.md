@@ -100,5 +100,6 @@ RANDOM_TOP=100
 ```
 
 ## Contribution
+The healthcheck of this container originally used a [NordVPN api that has been deprecated](https://support.nordvpn.com/hc/en-us/articles/21586950310801-Discontinuation-of-the-legacy-API-endpoints-on-NordVPN). The new healthcheck now involves comparing the IPv4 address obtlained by querying [ifconfig.me](ifconfig.me) with and without the proxy.
 
 Feel free to fork and contribute, or submit an issue.
