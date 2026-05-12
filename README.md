@@ -1,13 +1,22 @@
+> [!IMPORTANT]
+> ## Fork Credit — Please Read
+> This repository is a **fork** of the original `nordvpn-proxy` project created by **Joentje**.  
+> **All core credit for the original project belongs to the original creator.**
+>
+> Original repository: **https://github.com/Joentje/nordvpn-proxy**
+>
+> If you are evaluating this project, please review and star the original upstream repository.
+
 <p align="center">
     <a href="https://nordvpn.com/"><img src="https://www.freelogovectors.net/wp-content/uploads/2020/11/nordvpn-logo.png" width="400"/></a>
     </br>
     </br>
-    <a href="https://github.com/Joentje/nordvpn-proxy"><img src="https://github.com/Joentje/nordvpn-proxy/workflows/latest/badge.svg"/></a>
-    <a href="https://github.com/Joentje/nordvpn-proxy"><img src="https://github.com/Joentje/nordvpn-proxy/workflows/release/badge.svg"/></a>
-    <a href="https://github.com/Joentje/nordvpn-proxy"><img src="https://badgen.net/github/stars/Joentje/nordvpn-proxy?icon=github&label=stars&color=black"/></a>
-    <a href="https://cloud.docker.com/u/jeroenslot/repository/docker/jeroenslot/nordvpn-proxy"><img src="https://badgen.net/docker/size/jeroenslot/nordvpn-proxy?icon=docker&label=size"/></a>
-    <a href="https://cloud.docker.com/u/jeroenslot/repository/docker/jeroenslot/nordvpn-proxy"><img src="https://badgen.net/docker/pulls/jeroenslot/nordvpn-proxy?icon=docker&label=pulls"/></a>
-    <a href="https://cloud.docker.com/u/jeroenslot/repository/docker/jeroenslot/nordvpn-proxy"><img src="https://badgen.net/docker/stars/jeroenslot/nordvpn-proxy?icon=docker&label=stars"/></a>
+    <a href="https://github.com/dwilson2547/nordvpn-proxy"><img src="https://github.com/dwilson2547/nordvpn-proxy/workflows/latest/badge.svg"/></a>
+    <a href="https://github.com/dwilson2547/nordvpn-proxy"><img src="https://github.com/dwilson2547/nordvpn-proxy/workflows/release/badge.svg"/></a>
+    <a href="https://github.com/dwilson2547/nordvpn-proxy"><img src="https://badgen.net/github/stars/dwilson2547/nordvpn-proxy?icon=github&label=stars&color=black"/></a>
+    <a href="https://hub.docker.com/r/dwilson2547/nordvpn-proxy"><img src="https://badgen.net/docker/size/dwilson2547/nordvpn-proxy?icon=docker&label=size"/></a>
+    <a href="https://hub.docker.com/r/dwilson2547/nordvpn-proxy"><img src="https://badgen.net/docker/pulls/dwilson2547/nordvpn-proxy?icon=docker&label=pulls"/></a>
+    <a href="https://hub.docker.com/r/dwilson2547/nordvpn-proxy"><img src="https://badgen.net/docker/stars/dwilson2547/nordvpn-proxy?icon=docker&label=stars"/></a>
     </br>
 </p>
 
@@ -56,7 +65,7 @@ docker run -d \
 -v /etc/localtime:/etc/localtime:ro \
 -v ovpn-data:/app/ovpn/config \
 -p 8118:8118 \
-jeroenslot/nordvpn-proxy:latest 
+dwilson2547/nordvpn-proxy:latest
 ```
 
 Now you can connect other containers to use this connection:
@@ -72,7 +81,10 @@ For more info on networking, check the Docker [docs](https://docs.docker.com/eng
 
 ## Docker-compose
 
-You can use the `docker-compose.yml` example for you own setup. Change the environment variables!
+You can use the `docker-compose.yml` example for your own setup.
+
+1. Copy `.env.example` to `.env`.
+2. Set your `USERNAME` and `PASSWORD` in `.env`.
 
 Start the vpn proxy using:
 

@@ -1,7 +1,7 @@
 version: '3'
 services:
   vpn:
-    image: 9yifanchen9/nordvpn-proxy:latest
+    image: dwilson2547/nordvpn-proxy:latest
     cap_add:
       - NET_ADMIN
     devices:
@@ -13,9 +13,9 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ovpn-data:/app/ovpn/config
     environment:
-      - USERNAME=<nordvpn_username>
-      - PASSWORD=<nordvpn_password>
-      - LOCAL_NETWORK=192.168.1.0/24
+      - USERNAME=${USERNAME}
+      - PASSWORD=${PASSWORD}
+      - LOCAL_NETWORK=192.168.0.0/24
     networks:
       - default
     ports:
