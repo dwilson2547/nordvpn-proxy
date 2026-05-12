@@ -6,6 +6,7 @@ on:
       - "develop"
     tags-ignore: 
       - '**'
+  workflow_dispatch:
 
 jobs:
   buildx:
