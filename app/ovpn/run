@@ -40,4 +40,9 @@ else
   exit 1
 fi
 
+# Give up on a server after 3 failed connects instead of soft-restarting against it forever. Exiting
+# makes runit restart this script, which asks NordVPN for a fresh recommended server. Without it the
+# proxy sat on a retired server (us11782) until the pod was deleted (2026-10-11).
+set -- "$@" '--connect-retry-max' '3'
+
 openvpn "$@"
