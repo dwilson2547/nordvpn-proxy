@@ -12,6 +12,11 @@ touch "$cronfile"
 #Add cron for GET_OVPN_FILES
 printf "$CRON_OVPN_FILES '/app/ovpn/get-ovpn-files.sh'\n" > "$cronfile"
 
+if [[ "${ROTATE_CRON}" ]]; then
+    echo "$(adddate) INFO: The exit server will rotate on ${ROTATE_CRON}"
+    printf "$ROTATE_CRON '/app/ovpn/rotate.sh'\n" >> "$cronfile"
+fi
+
 if [[ "${CRON}" ]]; then
     echo "$(adddate) INFO: Your cron settings (${CRON}) will be applied!"
     printf "$CRON '/app/ovpn/get-status-server.sh'" >> "$cronfile"

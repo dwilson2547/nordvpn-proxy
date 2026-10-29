@@ -12,7 +12,8 @@ ENV OVPN_FILES="https://downloads.nordcdn.com/configs/archives/servers/ovpn.zip"
     PASSWORD="" \
     COUNTRY="" \
     LOAD=75 \
-    RANDOM_TOP="" \
+    RANDOM_TOP="20" \
+    ROTATE_CRON="*/20 * * * *" \
     LOCAL_NETWORK="" \
     REFRESH_TIME="120"
 
@@ -24,6 +25,7 @@ RUN \
     apk --update --no-cache add \
       privoxy \
       openvpn \
+      iptables \
       runit \
       bash \
       jq \

@@ -46,6 +46,15 @@ if [[ ! -v SERVER ]]; then
     #https://api.nordvpn.com/v1/servers/recommendations?limit=10&filters=[country_id]=106
     curl -s $SERVER_RECOMMENDATIONS_URL$QUERY_PARAM -o $JSON_FILE
 
+    # When rotating, don't land back on the server we just left (if there's anything else to pick).
+    if [ -f /tmp/nordvpn_hostname ]; then
+        previous="$(cat /tmp/nordvpn_hostname)"
+        others="$(jq --arg h "$previous" '[.[] | select(.hostname != $h)]' $JSON_FILE)"
+        if [ "$(echo "$others" | jq length)" -gt 0 ]; then
+            echo "$others" > $JSON_FILE
+        fi
+    fi
+
     NUMBER_OF_SERVERS="$(jq length $JSON_FILE)"
     DESIRED_SERVER_NUMBER="$(shuf -i 0-$(($NUMBER_OF_SERVERS - 1)) -n 1)"
 

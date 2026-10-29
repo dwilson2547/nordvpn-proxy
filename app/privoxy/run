@@ -13,6 +13,21 @@ if [ -n "$LOCAL_NETWORK" ]; then
 fi
 ip route add to 192.168.1.0/24 via $gw dev eth0
 
+# Kill switch: Privoxy (its own user) may only send through the tunnel, or back to local/pod networks
+# (its clients). Without it, whenever the tunnel was down (a rotation, a dead server) proxied requests
+# left by eth0 from the home IP. OpenVPN and the NordVPN API calls run as root and still go direct.
+# If the rules can't be set, don't start: runit retries, and a dead proxy beats a leaking one.
+iptables -F PRIVOXY_OUT 2>/dev/null || iptables -N PRIVOXY_OUT || exit 1
+iptables -C OUTPUT -m owner --uid-owner privoxy -j PRIVOXY_OUT 2>/dev/null ||
+	iptables -A OUTPUT -m owner --uid-owner privoxy -j PRIVOXY_OUT || exit 1
+iptables -A PRIVOXY_OUT -o lo -j ACCEPT || exit 1
+iptables -A PRIVOXY_OUT -o tun+ -j ACCEPT || exit 1
+for NETWORK in $(echo "$LOCAL_NETWORK" | tr "," "\n") 192.168.1.0/24; do
+	iptables -A PRIVOXY_OUT -d "$NETWORK" -j ACCEPT || exit 1
+done
+iptables -A PRIVOXY_OUT -j REJECT || exit 1
+echo "$(adddate) INFO: Kill switch set: Privoxy can only reach the internet through the tunnel"
+
 # Start privoxy
 echo "$(adddate) INFO: Privoxy will be started"
-privoxy --no-daemon
+exec privoxy --no-daemon --user privoxy
